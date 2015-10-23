@@ -8,18 +8,16 @@ class Robot
   end
 
   def orient(direction)
-    input_valid?(direction)
+    valid_direction?(direction)
     self.bearing = direction 
   end
 
   def turn_right
-    index = (DIRECTIONS.index(self.bearing) + 1) % 4
-    self.bearing = DIRECTIONS[index]
+    turn(:right)
   end
 
   def turn_left
-    index = (DIRECTIONS.index(self.bearing) - 1) % 4
-    self.bearing = DIRECTIONS[index]
+    turn(:left)
   end
 
   def advance
@@ -31,9 +29,9 @@ class Robot
     end
   end
 
-  def at(cord_x, cord_y)
-    self.x = cord_x
-    self.y = cord_y
+  def at(x, y)
+    self.x = x
+    self.y = y
   end
 
   def coordinates
@@ -42,24 +40,27 @@ class Robot
 
   private
 
-  def input_valid?(input)
-    raise ArgumentError if not DIRECTIONS.include? input
+  def valid_direction?(input)
+    raise ArgumentError, 'Invalid direction!' if not DIRECTIONS.include? input
   end
+
+  def turn(direction)
+    operator = direction == :left ? :- : :+
+    index = DIRECTIONS.index(self.bearing).send(operator, 1) % 4
+    self.bearing = DIRECTIONS[index]
+  end
+
 end
 
 class Simulator
   INSTRUCTIONS = { turn_left: 'L',
                    turn_right: 'R',
                    advance: 'A' }
-  def initialize
-  end
 
-  def instructions(instr)
-    out = []
-    out = instr.chars.map do |i|
+  def instructions(instructs)
+    instructs.chars.map do |i|
       INSTRUCTIONS.key(i)
     end
-    out
   end
 
   def place(robot, position)
@@ -67,8 +68,8 @@ class Simulator
     robot.orient(position[:direction])
   end
 
-  def evaluate(robot, instr)
-    instructions(instr).each do |cmd|
+  def evaluate(robot, instructs)
+    instructions(instructs).each do |cmd|
       robot.send(cmd)
     end
   end
