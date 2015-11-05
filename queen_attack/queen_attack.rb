@@ -4,7 +4,7 @@ class Queens
   COL = 1
 
   def initialize(queens={white: [0, 3], black: [7, 3]})
-    valid_input?(queens)
+    raise ArgumentError if invalid_input?(queens)
 
     @white = queens[:white]
     @black = queens[:black] 
@@ -40,8 +40,8 @@ class Queens
   end
 
   private
-  def valid_input?(queens)
-    raise ArgumentError if queens[:white] == queens[:black]
+  def invalid_input?(queens)
+    queens[:white] == queens[:black]
   end
 
 end
