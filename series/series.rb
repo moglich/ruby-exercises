@@ -1,15 +1,15 @@
 class Series
-  def initialize(string)
-    @string = string.chars.map(&:to_i)
+  def initialize(slice_string)
+    @slice_string = slice_string.chars.map(&:to_i)
   end
 
   def slices(slice_size)
-    raise ArgumentError if slice_size > @string.size
+    raise ArgumentError if slice_size > @slice_string.size
     series = []
-    @string.size.times do
-      if @string.size >= slice_size
-        series << @string.first(slice_size)
-        @string.shift
+    @slice_string.size.times do
+      if @slice_string.size >= slice_size
+        series << @slice_string.first(slice_size)
+        @slice_string.shift
       end
     end
     series
