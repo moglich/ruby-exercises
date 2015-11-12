@@ -1,6 +1,6 @@
 class Series
   def initialize(string)
-    @string = string.chars.map { |c| c.to_i }
+    @string = string.chars.map(&:to_i)
   end
 
   def slices(slice_size)
