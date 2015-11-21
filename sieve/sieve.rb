@@ -4,7 +4,7 @@ class Sieve
   end
 
   def primes
-    range = (2..@limit).map {|n| n}
+    range = (2..@limit).to_a
     prime = []
     while range.size > 0
       prime << range.shift
