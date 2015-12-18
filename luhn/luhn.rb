@@ -1,44 +1,20 @@
 class Luhn
-  attr_accessor :checksum
-
   def initialize(number)
-    @number = number
-  end
-
-  def self.create(number)
-    out = number.to_s.chars.reverse.each_with_index.map do |n, idx|
-      n = n.to_i
-      if (idx % 2) == 0 
-        n *= 2
-        if n >= 10
-          n -= 9
-        end
-        n
-      else
-        n
-      end
-    end.reverse 
-    number = (number * 10)
-    if (out.inject(:+) % 10) == 0
-      number
-    else
-      number + 10 - out.inject(:+) % 10
-    end
+    @digits = number.to_s.chars.map(&:to_i)
   end
 
   def addends
-    @number.to_s.chars.reverse.each_with_index.map do |n, idx|
-      n = n.to_i
-      if (idx % 2) != 0 
-        n *= 2
-        if n >= 10
-          n -= 9
+    @digits.reverse.each_with_index.map do |d, idx|
+      if idx.odd?
+        d *= 2
+        if d >= 10
+          d -= 9
         end
-        n
+        d
       else
-        n
+        d
       end
-    end.reverse 
+    end.reverse
   end
 
   def checksum
@@ -48,4 +24,14 @@ class Luhn
   def valid?
     (self.checksum % 10) == 0 ? true : false
   end
+
+  def self.create(number)
+    if new(number*10).valid?
+      number * 10
+    else
+      remainder = new(number*10).checksum % 10
+      number * 10 + (10 - remainder)
+    end
+  end
 end
+
