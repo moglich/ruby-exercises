@@ -1,16 +1,13 @@
 class Octal
-  def initialize(number)
-    if number.match(/\D|8|9/)
-      number = 0
-    end
-    @digits = number.to_s.chars.map(&:to_i)
+  def initialize(octal_number)
+    @octal_digits = octal_number.chars.map(&:to_i) unless octal_number.match(/\D|8|9/)
   end
 
   def to_decimal
-    decimal_number = 0
-    @digits.reverse.each_with_index do |number, idx|
-      decimal_number += number * (8 ** idx)
-    end
-    decimal_number
+    return 0 unless @octal_digits
+
+    @octal_digits.reverse.map.with_index do |number, idx|
+      number * (8 ** idx)
+    end.reduce(:+)
   end
 end
