@@ -1,14 +1,22 @@
 class Translation
   def self.of_codon(codon)
     case codon
-    when 'AUG' then 'Methionine'
-    when 'UUU', 'UUC' then 'Phenylalanine'
-    when 'UUA', 'UUG' then 'Leucine'
-    when 'UCU', 'UCC', 'UCA', 'UCG' then 'Serine'
-    when 'UAU', 'UAC' then 'Tyrosine'
-    when 'UGU', 'UGC' then 'Cysteine'
-    when 'UGG' then 'Tryptophan'
-    when 'UAA', 'UAG', 'UGA' then 'STOP'
+    when 'AUG'
+      'Methionine'
+    when 'UUU', 'UUC'
+      'Phenylalanine'
+    when 'UUA', 'UUG'
+      'Leucine'
+    when 'UCU', 'UCC', 'UCA', 'UCG'
+      'Serine'
+    when 'UAU', 'UAC'
+      'Tyrosine'
+    when 'UGU', 'UGC'
+      'Cysteine'
+    when 'UGG'
+      'Tryptophan'
+    when 'UAA', 'UAG', 'UGA'
+      'STOP'
     else raise ArgumentError
     end 
   end
