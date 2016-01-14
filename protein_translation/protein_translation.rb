@@ -22,17 +22,17 @@ class Translation
   end
 
   def self.of_rna(strand)
-    protein = []
+    protein_chain = []
     (strand.size / 3).times do |i|
-      protein_test = strand[i*3..(i*3+2)]
-      test_var = Translation.of_codon(protein_test)
-      if test_var == 'STOP'
-        return protein
+      codon = strand[(i * 3)..((i * 3) + 2)]
+      protein = Translation.of_codon(codon)
+      if protein == 'STOP'
+        return protein_chain
       else
-        protein << test_var
+        protein_chain << protein
       end
     end
-    protein
+    protein_chain
   end
 end
 
