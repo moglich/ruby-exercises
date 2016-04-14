@@ -5,12 +5,11 @@ class SumOfMultiples
   end
 
   def to(limit)
-    SumOfMultiples.to(@multiplicators, limit)
+    self.class.to(@multiplicators, limit)
   end
 
-  def self.to(multi = nil, limit)
-    @multiplicators = multi
-    @multiplicators ||= [3, 5]
+  def self.to(multiplicators = [3, 5], limit)
+    @multiplicators = multiplicators
     sum = []
     sum = [0] if limit < 3
     @multiplicators.each do |number|
