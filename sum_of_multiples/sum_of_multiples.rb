@@ -11,7 +11,6 @@ class SumOfMultiples
   def self.to(multiplicators = [3, 5], limit)
     @multiplicators = multiplicators
     sum = []
-    sum = [0] if limit < 3
     @multiplicators.each do |number|
       actual_number = number
       while actual_number < limit
@@ -21,7 +20,7 @@ class SumOfMultiples
           actual_number += number
       end
     end
-    sum.reduce(:+)
+    sum.reduce(0, :+)
   end
 
 end
