@@ -5,8 +5,16 @@ class WordProblem
   end
 
   def answer
-    words = @question.split
+    calculate(extract_calculation(@question))
+  end
+
+  private
+  
+  def extract_calculation(question)
     calculation = []
+
+    words = question.split
+    
     words.each do |word|
       case word
       when "plus"
@@ -28,11 +36,28 @@ class WordProblem
 
     raise ArgumentError if calculation == []
 
-    if calculation.length == 3
-      calculation[0].send calculation[1], calculation[2]
-    else
-      result1 = calculation[0].send calculation[1], calculation[2]
-      result1.send calculation[3], calculation[4]
+    calculation
+  end
+
+  def calculate(calculation)
+    numbers = []
+    operators = []
+
+    calculation.each_with_index do |value, idx|
+      if idx.even?
+        numbers << value
+      else
+        operators << value
+      end
     end
+
+    until numbers.empty? do
+      result = numbers.shift.send(operators.shift, numbers.shift)
+      unless numbers.empty?
+        numbers.unshift(result)
+      end
+    end
+
+    result
   end
 end
