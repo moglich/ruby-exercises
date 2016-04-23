@@ -7,16 +7,12 @@ class Anagram
     anagrams = []
 
     words.each do |word|
-      if word.length == @origin_word.length
-        if word.downcase.chars.sort == @origin_word.downcase.chars.sort
-          unless word.downcase == @origin_word.downcase
-            anagrams << word
-          end
-        end
+      next unless word.length == @origin_word.length
+      if word.downcase.chars.sort == @origin_word.downcase.chars.sort
+        anagrams << word unless word.downcase == @origin_word.downcase
       end
     end
 
     anagrams
   end
 end
-
