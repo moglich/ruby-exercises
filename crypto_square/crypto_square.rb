@@ -8,8 +8,7 @@ class Crypto
   end
 
   def size
-    square = Math.sqrt(normalize_plaintext.size)
-    square == square.to_i ? square : square.ceil
+    Math.sqrt(normalize_plaintext.size).ceil
   end
 
   def generate_segments
