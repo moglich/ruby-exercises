@@ -4,7 +4,7 @@ class Crypto
   end
 
   def normalize_plaintext
-    @crypto_input.gsub(/\W/, '').downcase
+    @crypto_input.downcase.gsub(/[^a-z0-9]/, '')
   end
 
   def size
