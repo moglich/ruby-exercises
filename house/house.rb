@@ -1,21 +1,24 @@
 class House
-
   def self.recite
     pieces = House.new.send(:pieces)
     rhyme = []
 
-    pieces.size.times do |n|
+    pieces.size.times do |piece_idx|
       lines = []
-      pieces.flatten.reverse[0..(n * 2)].reverse.unshift("This is").each_slice(2) do |who, what|
+      pieces.flatten
+            .reverse[0..(piece_idx * 2)]
+            .reverse.unshift('This is')
+            .each_slice(2) do |who, what|
         lines << "#{who} #{what}\n"
       end
       lines.last.gsub!("\n", ".\n")
       rhyme << (lines << "\n")
     end
+
     rhyme.last.last.strip!
     rhyme.join
   end
-  
+
   private
 
   def pieces
