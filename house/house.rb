@@ -8,15 +8,14 @@ class House
       pieces.flatten
             .reverse[0..(piece_idx * 2)]
             .reverse.unshift('This is')
-            .each_slice(2) do |who, what|
-        lines << "#{who} #{what}\n"
+            .each_slice(2) do |what, who|
+        lines << "#{what} #{who}\n"
       end
-      lines.last.gsub!("\n", ".\n")
-      rhyme << (lines << "\n")
+      lines.last.gsub!("\n", ".\n\n")
+      rhyme << lines
     end
 
-    rhyme.last.last.strip!
-    rhyme.join
+    rhyme.join.chomp
   end
 
   private
