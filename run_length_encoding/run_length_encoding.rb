@@ -1,39 +1,14 @@
 class RunLengthEncoding
   def self.encode(input)
-    output = []
-    char_count = 1
-
-    input.chars.each_with_index do |char, idx|
-      if input[idx + 1] == char
-        char_count += 1
-      else
-        output << char_count if char_count > 1
-        output << char
-        char_count = 1
-      end
+    input.gsub(/((.)\2*)/) do |part|
+      part.size == 1 ? part[0] : (part.size.to_s + part[0])
     end
-
-    output.join
   end
 
   def self.decode(input)
-    output = []
-    char_count = 0
-
-    input.chars.each_with_index do |char, idx|
-      if /\d/.match char
-        if /\d/.match input[idx + 1]
-          char_count = (char_count + char.to_i) * 10
-        else
-          char_count += char.to_i
-        end
-      else
-        char_count = 1 if char_count == 0
-        output << (char * char_count)
-        char_count = 0
-      end
+    input.gsub(/\d*./) do |part|
+      count = part.match(/\d*/)[0].to_i
+      count == 0 ? part : part.match(/[^\d]/).to_s * count
     end
-
-    output.join
   end
 end
