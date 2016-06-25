@@ -1,6 +1,6 @@
 class RunLengthEncoding
   def self.encode(input)
-    input.gsub(/((.)\2*)/) { |part| part.size == 1 ? $2 : part.size.to_s + $2 }
+    input.gsub(/((.)\2*)/) { $1.size == 1 ? $2 : $1.size.to_s + $2 }
   end
 
   def self.decode(input)
