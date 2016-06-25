@@ -1,21 +1,21 @@
+require 'pry'
+
 class House
   def self.recite
-    pieces = House.new.send(:pieces)
-    rhyme = []
+    new.recite
+  end
 
-    pieces.size.times do |piece_idx|
-      lines = []
-      pieces.flatten
-            .reverse[0..(piece_idx * 2)]
-            .reverse.unshift('This is')
-            .each_slice(2) do |what, who|
-        lines << "#{what} #{who}\n"
-      end
-      lines.last.gsub!("\n", ".\n\n")
-      rhyme << lines
-    end
+  def recite
+    (1..pieces.size)
+      .map { |piece| make_verse(pieces.last(piece)) }
+      .join("\n\n") + "\n"
+  end
 
-    rhyme.join.chomp
+  private
+
+  def make_verse(pieces)
+    verse = pieces.map { |piece| piece.join("\n") }.join(" ")
+    "This is #{verse}."
   end
 
   private
