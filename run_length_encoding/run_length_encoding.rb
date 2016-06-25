@@ -1,7 +1,7 @@
 class RunLengthEncoding
   def self.encode(input)
     input.gsub(/((.)\2*)/) do |part|
-      part.size == 1 ? $2 : (part.size.to_s + $2)
+      part.size == 1 ? $2 : part.size.to_s + $2
     end
   end
 
