@@ -4,6 +4,6 @@ class RunLengthEncoding
   end
 
   def self.decode(input)
-    input.gsub(/(\d*)(.)/) { $1.to_i == 0 ? $2 : $2 * $1.to_i }
+    input.gsub(/(\d+)(.)/) { $2 * $1.to_i }
   end
 end
